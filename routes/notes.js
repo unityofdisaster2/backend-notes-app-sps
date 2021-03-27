@@ -1,5 +1,7 @@
 const { Router } = require('express');
 
+const { check } = require('express-validator')
+
 const { createNote, getNotes, deleteNote, updateNote } = require('../controllers/noteController');
 const router = Router();
 
@@ -14,10 +16,24 @@ const router = Router();
 router.get('/', getNotes);
 
 // ruta para agregar notas
-router.post('/', createNote);
+router.post('/', 
+    [
+        check('titulo').not().isEmpty(),
+        check('informacion').not().isEmpty(),
+        check('nombreCreador').not().isEmpty(),
+        check('fecha').not().isEmpty(),
+    ]
+    ,createNote);
 
 // ruta para modificar notas
-router.put('/:id', updateNote);
+router.put('/:id',
+        [
+            check('titulo').not().isEmpty(),
+            check('informacion').not().isEmpty(),
+            check('nombreCreador').not().isEmpty(),
+            check('fecha').not().isEmpty(),
+        ]
+    ,updateNote);
 
 // ruta para eliminar una nota
 router.delete('/:id', deleteNote);
