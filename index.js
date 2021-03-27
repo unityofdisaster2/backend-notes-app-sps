@@ -34,8 +34,10 @@ exprApp.use('/servicio/api_notes_app/notes', require('./routes/notes'));
 exprApp.use('/servicio/api_notes_app/notes', require('./routes/notes'));
 // middleware utilizado para poder parsear formatos JSON
 
-exprApp.get('*', (req,res) => {
-    res.sendFile(__dirname + '/public/index.html');
+exprApp.use(express.static(__dirname+'/public'));
+
+exprApp.get('/', (req,res) => {
+    res.sendFile(path.join(__dirname + '/public/index.html'));
 });
 
 // habilitar servidor para que escuche peticiones en el puerto especificado
